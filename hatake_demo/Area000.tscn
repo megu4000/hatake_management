@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=3 uid="uid://bumdj4mvmyxp3"]
+
+[ext_resource type="Script" path="res://Area000.gd" id="1_5mvjh"]
+[ext_resource type="Texture2D" uid="uid://bp68l37p8nhnt" path="res://mark_chuui.png" id="4_b5h5v"]
+[ext_resource type="Script" path="res://deleteButton.gd" id="4_cl0av"]
+[ext_resource type="Texture2D" uid="uid://bhwug8nw4rady" path="res://text_yasumi.png" id="5_27kiv"]
+[ext_resource type="PackedScene" uid="uid://wuntyodvcow7" path="res://field_information.tscn" id="5_qr6mb"]
+[ext_resource type="Script" path="res://Plow.gd" id="6_7hlod"]
+[ext_resource type="Script" path="res://Follow.gd" id="8_c55v3"]
+
+[node name="Area000" type="Button" groups=["Persist"]]
+offset_left = 59.0
+offset_top = 84.0
+offset_right = 359.0
+offset_bottom = 384.0
+theme_override_font_sizes/font_size = 20
+script = ExtResource("1_5mvjh")
+
+[node name="Popup" type="Popup" parent="."]
+size = Vector2i(300, 349)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -31.0
+offset_right = 54.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="upper" type="Button" parent="Popup/HBoxContainer"]
+layout_mode = 2
+text = "　上　"
+
+[node name="downer" type="Button" parent="Popup/HBoxContainer"]
+layout_mode = 2
+text = "　下　"
+
+[node name="bigger" type="Button" parent="Popup/HBoxContainer"]
+layout_mode = 2
+text = "　左　"
+
+[node name="smaller" type="Button" parent="Popup/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+text = "　右　"
+
+[node name="deleteButton" type="Button" parent="Popup/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.360844, 0.293565, 1)
+text = "削除"
+script = ExtResource("4_cl0av")
+
+[node name="Popup" type="Popup" parent="Popup/HBoxContainer/deleteButton"]
+size = Vector2i(188, 100)
+
+[node name="Label" type="Label" parent="Popup/HBoxContainer/deleteButton/Popup"]
+offset_right = 188.0
+offset_bottom = 49.0
+text = "　　　   ＜注意＞
+この畑エリアを削除しますか？"
+
+[node name="YesButton" type="Button" parent="Popup/HBoxContainer/deleteButton/Popup"]
+offset_left = 15.0
+offset_top = 60.0
+offset_right = 85.0
+offset_bottom = 90.0
+text = "はい"
+
+[node name="NoButton" type="Button" parent="Popup/HBoxContainer/deleteButton/Popup"]
+offset_left = 100.0
+offset_top = 60.0
+offset_right = 170.0
+offset_bottom = 90.0
+text = "いいえ"
+
+[node name="FieldInformation" parent="Popup" instance=ExtResource("5_qr6mb")]
+
+[node name="HideButton" type="Button" parent="Popup"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_right = -2.98987
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Plow" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.627451)
+layout_mode = 0
+offset_left = 116.0
+offset_top = -14.0
+offset_right = 516.0
+offset_bottom = 351.0
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("4_b5h5v")
+script = ExtResource("6_7hlod")
+
+[node name="Follow" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.627451)
+layout_mode = 0
+offset_left = 118.0
+offset_right = 518.0
+offset_bottom = 266.0
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_27kiv")
+script = ExtResource("8_c55v3")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/upper" to="." method="_on_upper_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/downer" to="." method="_on_downer_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/bigger" to="." method="_on_bigger_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/bigger" to="Plow" method="_on_bigger_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/bigger" to="Follow" method="_on_bigger_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/smaller" to="." method="_on_smaller_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/smaller" to="Plow" method="_on_smaller_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/smaller" to="Follow" method="_on_smaller_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/deleteButton" to="Popup/HBoxContainer/deleteButton" method="_on_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/deleteButton/Popup/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="Popup/HBoxContainer/deleteButton/Popup/NoButton" to="Popup/HBoxContainer" method="_on_no_button_pressed"]
+[connection signal="pressed" from="Popup/HideButton" to="." method="_on_hide_button_pressed"]

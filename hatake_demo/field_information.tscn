@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://wuntyodvcow7"]
+
+[ext_resource type="Script" path="res://field_information.gd" id="1_efneg"]
+
+[node name="FieldInformation" type="VBoxContainer"]
+offset_right = 300.0
+offset_bottom = 317.0
+script = ExtResource("1_efneg")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "作物の名前"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "収穫後に押すボタン"
+
+[node name="LineEdit2" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "前回の作物"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+placeholder_text = "メモ"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 5
+popup/item_0/text = "耕して"
+popup/item_0/id = 0
+popup/item_1/text = "植えれる"
+popup/item_1/id = 1
+popup/item_2/text = "成長中"
+popup/item_2/id = 2
+popup/item_3/text = "収穫可能"
+popup/item_3/id = 3
+popup/item_4/text = "休耕地"
+popup/item_4/id = 4
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
